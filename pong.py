@@ -42,22 +42,35 @@ lose2 = font1.render('PLAYER 2 LOSE!', True, (180, 0, 0))
 game = False
 speed_x = 3
 speed_y = 2
+score1 = 0
+score2 = 0
 finish = False
 while game == False:
     for e in event.get():
         if e.type == QUIT:
             game = True
     if finish != True:
-
+        win.fill((255, 255, 255))
         ball.rect.x += speed_x
         ball.rect.y += speed_y
         if ball.rect.x >= 450:
-            finish = True
-            win.blit(lose2, (200, 200))
-            display.update()
+            score1 += 1
+            ball.rect.x = 200
+            ball.rect.y = 200
         if ball.rect.x <= 0:
+            score1 += 1
+            ball.rect.x = 200
+            ball.rect.y = 200
+        
+        
+        
+        if score1 >= 5:
             finish = True
-            win.blit(lose1, (200, 200))
+            win.blit(lose2, (170, 150))
+            display.update()
+        if score2 >= 5:
+            finish = True
+            win.blit(lose1, (170, 150))
             display.update()
         if ball.rect.y >= 450 or ball.rect.y <= 0:
             speed_y *= -1
@@ -70,7 +83,7 @@ while game == False:
             speed_x *= -1
 
         
-        win.fill((255, 255, 255))
+        
         player_left.update_l()
         player_right.update_r()
         player_left.reset()
